@@ -52,7 +52,7 @@ const productSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ["Male", "Female", "Other"],
+      enum: ["Men", "Women", "Unisex"],
     },
     images: [
       {
