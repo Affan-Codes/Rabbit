@@ -1,0 +1,32 @@
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import { userRouter } from "./routes/userRoutes.js";
+import { productRouter } from "./routes/productRoutes.js";
+
+const app = express();
+
+app.use(express.json());
+app.use(cors());
+
+dotenv.config({
+  path: "./.env",
+});
+
+const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+connectDB();
+
+app.get("/", (req, res) => {
+  res.send("WELCOME TO RABBIT API");
+});
+
+// API Routes
+app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
