@@ -5,6 +5,8 @@ import connectDB from "./config/db.js";
 import { userRouter } from "./routes/userRoutes.js";
 import { productRouter } from "./routes/productRoutes.js";
 import { cartRouter } from "./routes/cartRoutes.js";
+import { checkoutRouter } from "./routes/checkoutRoutes.js";
+import { orderRouter } from "./routes/orderRoutes.js";
 
 const app = express();
 
@@ -28,6 +30,8 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/checkout", checkoutRouter);
+app.use("/api/orders", orderRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
