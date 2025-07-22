@@ -5,9 +5,7 @@ import { User } from "./models/User.js";
 import { products } from "./data/products.js";
 import { Cart } from "./models/Cart.js";
 
-dotenv.config({
-  path: "./.env",
-});
+dotenv.config();
 
 // Connect to mongoDB
 mongoose.connect(process.env.MONGO_URI);
