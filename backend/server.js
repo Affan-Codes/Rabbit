@@ -16,7 +16,24 @@ import { adminOrderRouter } from "./routes/adminOrdersRoutes.js";
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = [
+  "http://localhost:5173", // for development
+  "https://rabbit-frontend-zeta.vercel.app/", // for production
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 dotenv.config();
 
