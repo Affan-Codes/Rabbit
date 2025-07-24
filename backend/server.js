@@ -18,8 +18,8 @@ const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
-  "http://localhost:5173", // for development
-  "https://rabbit-frontend-zeta.vercel.app/", // for production
+  "http://localhost:5173",
+  "https://rabbit-frontend-zeta.vercel.app",
 ];
 
 app.use(
@@ -60,6 +60,7 @@ app.use("/api/admin/users", adminRouter);
 app.use("/api/admin/products", productAdminRouter);
 app.use("/api/admin/orders", adminOrderRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// For dev
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
