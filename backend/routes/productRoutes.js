@@ -220,7 +220,7 @@ productRouter.get("/", async (req, res) => {
         case "priceAsc":
           sort = { price: 1 };
           break;
-        case "priceDes":
+        case "priceDesc":
           sort = { price: -1 };
           break;
         case "popularity":

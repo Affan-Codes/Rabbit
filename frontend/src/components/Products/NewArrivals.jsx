@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { Link } from "react-router-dom";
@@ -9,97 +10,22 @@ const NewArrivals = () => {
   const [scrollLeft, setScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [newArrivals, setNewArrivals] = useState([]);
 
-  const newArrivals = [
-    {
-      _id: "1",
-      name: "Summer Dress",
-      price: 49.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=1",
-          alt: "Summer Dress",
-        },
-      ],
-    },
-    {
-      _id: "2",
-      name: "Casual Shirt",
-      price: 29.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=2",
-          alt: "Casual Shirt",
-        },
-      ],
-    },
-    {
-      _id: "3",
-      name: "Beach Shorts",
-      price: 34.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=3",
-          alt: "Beach Shorts",
-        },
-      ],
-    },
-    {
-      _id: "4",
-      name: "Light Jacket",
-      price: 59.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=4",
-          alt: "Light Jacket",
-        },
-      ],
-    },
-    {
-      _id: "5",
-      name: "Sneakers",
-      price: 79.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=5",
-          alt: "Sneakers",
-        },
-      ],
-    },
-    {
-      _id: "6",
-      name: "Sunglasses",
-      price: 19.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=6",
-          alt: "Sunglasses",
-        },
-      ],
-    },
-    {
-      _id: "7",
-      name: "Beach Hat",
-      price: 24.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=7",
-          alt: "Beach Hat",
-        },
-      ],
-    },
-    {
-      _id: "8",
-      name: "Flip Flops",
-      price: 14.99,
-      images: [
-        {
-          url: "https://picsum.photos/500/500?random=8",
-          alt: "Flip Flops",
-        },
-      ],
-    },
-  ];
+  useEffect(() => {
+    const fetchNewArrivals = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/products/new-arrivals`
+        );
+        setNewArrivals(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchNewArrivals();
+  }, []);
 
   const handleMouseDown = (e) => {
     setIsDragging(true);
@@ -147,7 +73,7 @@ const NewArrivals = () => {
         container.removeEventListener("scroll", updateScrollButton);
       }
     };
-  }, []);
+  }, [newArrivals]);
 
   return (
     <section className="py-16 px-4 lg:px-0">
