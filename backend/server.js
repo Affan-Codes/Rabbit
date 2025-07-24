@@ -19,7 +19,7 @@ app.use(express.json());
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://rabbit-frontend-zeta.vercel.app",
+  "https://rabbit-alpha.vercel.app",
 ];
 
 app.use(
