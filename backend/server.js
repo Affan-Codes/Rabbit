@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+
 import { userRouter } from "./routes/userRoutes.js";
 import { productRouter } from "./routes/productRoutes.js";
 import { cartRouter } from "./routes/cartRoutes.js";
@@ -13,8 +14,12 @@ import { adminRouter } from "./routes/adminRoutes.js";
 import { productAdminRouter } from "./routes/productAdminRoutes.js";
 import { adminOrderRouter } from "./routes/adminOrdersRoutes.js";
 
-const app = express();
+dotenv.config();
 
+// Connect to MongoDB
+connectDB();
+
+const app = express();
 app.use(express.json());
 
 const allowedOrigins = [
@@ -35,12 +40,7 @@ app.use(
   })
 );
 
-dotenv.config();
-
 const PORT = process.env.PORT || 3000;
-
-// Connect to MongoDB
-connectDB();
 
 app.get("/", (req, res) => {
   res.send("WELCOME TO RABBIT API");
@@ -61,9 +61,10 @@ app.use("/api/admin/products", productAdminRouter);
 app.use("/api/admin/orders", adminOrderRouter);
 
 // For dev
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+// });
 
-// For Vercel
-export default app;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
