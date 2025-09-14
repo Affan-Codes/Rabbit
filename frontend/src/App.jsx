@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import UserLayout from "./components/Layout/UserLayout";
 import Home from "./pages/Home";
@@ -16,12 +15,12 @@ import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHomePage from "./pages/AdminHomePage";
 import UserManagement from "./components/Admin/UserManagement";
 import ProductManagement from "./components/Admin/ProductManagement";
-import EditProductPage from "./components/Admin/EditProductPage";
 import OrderManagement from "./components/Admin/OrderManagement";
 
 import store from "./redux/store";
 import { Provider } from "react-redux";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import ProductFormPage from "./components/Admin/ProductFormPage";
 
 const App = () => {
   return (
@@ -59,7 +58,14 @@ const App = () => {
             <Route index element={<AdminHomePage />} />
             <Route path="users" element={<UserManagement />} />
             <Route path="products" element={<ProductManagement />} />
-            <Route path="products/:id/edit" element={<EditProductPage />} />
+            <Route
+              path="products/:id/edit"
+              element={<ProductFormPage type="update" />}
+            />
+            <Route
+              path="products/create"
+              element={<ProductFormPage type="create" />}
+            />
             <Route path="orders" element={<OrderManagement />} />
           </Route>
         </Routes>

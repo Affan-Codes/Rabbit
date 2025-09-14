@@ -23,7 +23,7 @@ export const createProduct = createAsyncThunk(
   "adminProducts/createProduct",
   async (productData) => {
     const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/products`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/products/create`,
       productData,
       {
         headers: {

@@ -7,7 +7,7 @@ const productRouter = express.Router();
 // @route POST /api/products
 // @desc Create a new Product
 // @access Private/Admin
-productRouter.post("/", protect, admin, async (req, res) => {
+productRouter.post("/create", protect, admin, async (req, res) => {
   try {
     const {
       name,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
@@ -27,7 +27,15 @@ const ProductManagement = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Product Management</h2>
+      <div className="mb-6 flex justify-between items-center">
+        <h2 className="text-2xl font-bold">Product Management</h2>
+        <Link
+          to={`/admin/products/create`}
+          className="bg-green-500 text-white py-1 hover:bg-green-600 rounded-sm px-4"
+        >
+          Add
+        </Link>
+      </div>
       <div className="overflow-x-auto shadow-md sm:rounded-lg">
         <table className="min-w-full text-left text-gray-500">
           <thead className="bg-gray-100 text-xs uppercase text-gray-700">

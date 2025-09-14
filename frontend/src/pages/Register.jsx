@@ -44,7 +44,13 @@ const Register = () => {
           className="w-full max-w-md bg-white p-8 rounded-lg border shadow-sm"
         >
           <div className="flex justify-center mb-6">
-            <h2 className="text-xl font-medium">Rabbit</h2>
+            <Link
+              to="/"
+              className="text-2xl font-bold flex text-red-400 items-center"
+            >
+              <img src="/logo.png" className="mr-2 size-10" />
+              <span>Rabbit</span>
+            </Link>
           </div>
           <h2 className="text-2xl font-bold text-center mb-6">Hey there! 👋🏻</h2>
           <p className="text-center mb-6">

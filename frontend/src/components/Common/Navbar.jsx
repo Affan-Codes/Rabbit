@@ -30,8 +30,12 @@ const Navbar = () => {
       <nav className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Left - Logo */}
         <div>
-          <Link to="/" className="text-2xl font-medium">
-            Rabbit
+          <Link
+            to="/"
+            className="text-2xl font-bold flex text-red-400 items-center"
+          >
+            <img src="/logo.png" className="mr-2 size-10" />
+            <span>Rabbit</span>
           </Link>
         </div>
         {/* Center - Navigation Links */}
