@@ -11,25 +11,58 @@ const checkoutRouter = express.Router();
 // @desc Create a new checkout session
 // @access Private
 checkoutRouter.post("/", protect, async (req, res) => {
-  const { checkoutItems, shippingAddress, paymentMethod, totalPrice } =
-    req.body;
+  const { checkoutItems, shippingAddress, paymentMethod } = req.body;
 
   if (!checkoutItems || checkoutItems.length === 0) {
     return res.status(400).json({ message: "No items in checkout" });
   }
 
   try {
-    // Create a new checkout session
+    // Calculate server-side total and build sanitized checkout items
+    let calculatedTotal = 0;
+    const sanitizedItems = [];
+
+    for (const item of checkoutItems) {
+      const product = await Product.findById(item.productId);
+
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      const quantity = item.quantity && item.quantity > 0 ? item.quantity : 1;
+      const price =
+        typeof product.price === "number"
+          ? product.price
+          : Number(product.price) || 0;
+
+      calculatedTotal += price * quantity;
+
+      sanitizedItems.push({
+        productId: product._id,
+        name: product.name,
+        image:
+          (product.images && product.images[0] && product.images[0].url) ||
+          item.image ||
+          "",
+        price,
+        quantity,
+        size: item.size,
+        color: item.color,
+      });
+    }
+
+    // Create a new checkout session using server-calculated total
     const newCheckout = await Checkout.create({
       user: req.user._id,
-      checkoutItems: checkoutItems,
+      checkoutItems: sanitizedItems,
       shippingAddress,
       paymentMethod,
-      totalPrice,
+      totalPrice: calculatedTotal,
       paymentStatus: "Pending",
       isPaid: false,
     });
-    console.log(`Checkout cretaed for user ${req.user._id}`);
+
+    console.log(`Checkout created for user ${req.user._id}`);
     res.status(201).json(newCheckout);
   } catch (error) {
     console.error("Error creating checkout session: ", error);

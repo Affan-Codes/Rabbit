@@ -9,7 +9,10 @@ const cartItemSchema = new mongoose.Schema(
     },
     name: String,
     image: String,
-    price: String,
+    price: {
+      type: Number,
+      default: 0,
+    },
     size: String,
     color: String,
     quantity: {
@@ -17,7 +20,7 @@ const cartItemSchema = new mongoose.Schema(
       default: 1,
     },
   },
-  { _id: false }
+  { _id: false },
 );
 
 const cartSchema = new mongoose.Schema(
@@ -36,7 +39,7 @@ const cartSchema = new mongoose.Schema(
       default: 0,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export const Cart = mongoose.model("Cart", cartSchema);
